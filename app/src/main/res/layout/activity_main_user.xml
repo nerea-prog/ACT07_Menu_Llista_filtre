@@ -166,7 +166,7 @@
     <androidx.cardview.widget.CardView
         android:id="@+id/cardRecyclerView"
         android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_height="200dp"
         app:cardCornerRadius="18dp"
         app:layout_constraintBottom_toTopOf="@id/filaInferior"
         app:layout_constraintEnd_toEndOf="parent"
