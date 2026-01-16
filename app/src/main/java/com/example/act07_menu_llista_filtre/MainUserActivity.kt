@@ -61,32 +61,10 @@ class MainUserActivity : AppCompatActivity() {
 
 
         adapter = MyAdapter(DataSource.items){ item, position ->
-            handleItemClick(item, position)
+            Toast.makeText(this, "Has seleccionat: ${item.title}", Toast.LENGTH_SHORT).show()
         }
 
         recyclerView.adapter = adapter
-    }
-
-    private fun handleItemClick(item: MyItem, position: Int) {
-        Toast.makeText(this, "Has seleccionat: ${item.title}", Toast.LENGTH_SHORT).show()
-        showItemOptionsDialog(item, position)
-    }
-
-    private fun showItemOptionsDialog(item: MyItem, position: Int) {
-        val options = arrayOf("Eliminar", "Cancel·lar")
-
-        AlertDialog.Builder(this)
-            .setTitle(item.title)
-            .setItems(options) { dialog, which ->
-                when (which) {
-                    0 -> {
-                        // Eliminar item
-                        adapter.removeItem(position)
-                        Toast.makeText(this, "S'ha eliminat: ${item.title}", Toast.LENGTH_SHORT).show()
-                    }
-                }
-            }
-            .show()
     }
 
     private fun initListeners() {
@@ -95,7 +73,6 @@ class MainUserActivity : AppCompatActivity() {
             startActivity(intent)
         }
     }
-
     private fun initComponents() {
         btnTestNav = findViewById(R.id.btnTestNav)
     }

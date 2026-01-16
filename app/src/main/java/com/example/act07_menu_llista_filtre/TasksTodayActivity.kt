@@ -30,16 +30,12 @@ class TasksTodayActivity : AppCompatActivity() {
         recyclerView.layoutManager = LinearLayoutManager(this)
 
 
-        adapter = MyAdapter(DataSource.items){ item, position ->
-            handleItemClick(item, position)
+        adapter = MyAdapter(TodayTasksDataSource.items){ item, position ->
+            Toast.makeText(this, "Has seleccionat: ${item.title}", Toast.LENGTH_SHORT).show()
+            showItemOptionsDialog(item, position)
         }
 
         recyclerView.adapter = adapter
-    }
-
-    private fun handleItemClick(item: MyItem, position: Int) {
-        Toast.makeText(this, "Has seleccionat: ${item.title}", Toast.LENGTH_SHORT).show()
-        showItemOptionsDialog(item, position)
     }
 
     private fun showItemOptionsDialog(item: MyItem, position: Int) {

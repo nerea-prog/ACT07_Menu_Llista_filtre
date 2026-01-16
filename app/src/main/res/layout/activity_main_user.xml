@@ -56,7 +56,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvGreeting"
         app:startIconDrawable="@drawable/ic_search"
-        app:startIconTint="@color/brown">
+        app:startIconTint="@color/brown"
+        app:layout_constraintWidth_max="360dp">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/etSearch"
@@ -168,6 +169,7 @@
         android:layout_width="0dp"
         android:layout_height="200dp"
         app:cardCornerRadius="18dp"
+        app:cardBackgroundColor="@color/brown"
         app:layout_constraintBottom_toTopOf="@id/filaInferior"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
