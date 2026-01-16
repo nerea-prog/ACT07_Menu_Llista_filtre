@@ -11,7 +11,7 @@
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/my_toolbar"
         android:layout_width="0dp"
-        android:layout_height="?attr/actionBarSize"
+        android:layout_height="80dp"
         android:background="?attr/colorPrimary"
         android:elevation="4dp"
         android:theme="@style/ThemeOverlay.Material3.ActionBar"
@@ -39,7 +39,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/my_toolbar"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="30dp"
         android:layout_marginStart="24dp"/>
 
     <!-- SEARCH BAR -->
@@ -84,34 +84,38 @@
         <Button
             android:id="@+id/btnAvui"
             android:layout_width="0dp"
-            android:layout_height="50dp"
+            android:layout_height="60dp"
             android:layout_columnWeight="1"
             android:text="@string/btn_avui_text"
-            android:textAllCaps="true" />
+            android:textAllCaps="true"
+            android:textSize="18sp"/>
 
         <Button
             android:id="@+id/btnTot"
             android:layout_width="0dp"
-            android:layout_height="50dp"
+            android:layout_height="60dp"
             android:layout_columnWeight="1"
             android:text="@string/btn_tot_text"
-            android:textAllCaps="true" />
+            android:textAllCaps="true"
+            android:textSize="18sp"/>
 
         <Button
             android:id="@+id/btnFet"
             android:layout_width="0dp"
-            android:layout_height="50dp"
+            android:layout_height="60dp"
             android:layout_columnWeight="1"
             android:text="@string/btn_fet_text"
-            android:textAllCaps="true" />
+            android:textAllCaps="true"
+            android:textSize="18sp"/>
 
         <Button
             android:id="@+id/btnCalendari"
             android:layout_width="0dp"
-            android:layout_height="50dp"
+            android:layout_height="60dp"
             android:layout_columnWeight="1"
             android:text="@string/btn_calendari_text"
-            android:textAllCaps="true" />
+            android:textAllCaps="true"
+            android:textSize="18sp"/>
 
     </GridLayout>
 
@@ -133,15 +137,15 @@
         android:id="@+id/ivMainCat"
         android:layout_width="150dp"
         android:layout_height="150dp"
-        android:layout_marginStart="12dp"
-        android:layout_marginEnd="12dp"
+        android:layout_marginTop="30dp"
         android:adjustViewBounds="true"
         android:contentDescription="@string/cat_image"
         android:scaleType="fitCenter"
         android:src="@drawable/gatodepie"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnCustomizeCat" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btnCustomizeCat"
+        app:layout_constraintBottom_toTopOf="@id/cardRecyclerView" />
 
     <TextView
         android:id="@+id/tvCatName"
@@ -159,9 +163,10 @@
     <androidx.cardview.widget.CardView
         android:id="@+id/cardRecyclerView"
         android:layout_width="0dp"
-        android:layout_height="200dp"
+        android:layout_height="0dp"
         app:cardCornerRadius="18dp"
-        android:layout_margin="24dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginEnd="24dp"
         app:cardBackgroundColor="@color/brown"
         app:layout_constraintBottom_toTopOf="@id/filaInferior"
         app:layout_constraintEnd_toEndOf="parent"
