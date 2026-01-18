@@ -16,10 +16,5 @@ class MyViewHolder(
         itemView.setOnClickListener {
             onItemClick(item, position)
         }
-
-        /*itemView.setOnLongClickListener {
-            onItemClick(item, position)
-            true
-        }*/
     }
 }
