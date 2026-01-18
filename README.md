@@ -458,4 +458,4 @@ class TasksTodayActivity : AppCompatActivity() {
 
 ## Video mostrant el funcionament
 
-<video controls src="video/Video1.mp4" title="Title"></video>
+[Enllaç al video](video/Video1.mp4)
