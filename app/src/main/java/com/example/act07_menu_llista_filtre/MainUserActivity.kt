@@ -2,21 +2,17 @@ package com.example.act07_menu_llista_filtre
 
 import android.content.Intent
 import android.os.Bundle
-import android.text.Editable
 import android.widget.Button
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.appcompat.app.AlertDialog
-import com.google.android.material.textfield.TextInputEditText
-import android.text.TextWatcher
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
+import android.widget.PopupMenu
 import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
 
@@ -24,17 +20,13 @@ class MainUserActivity : AppCompatActivity() {
     private lateinit var btnTestNav: Button
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: MyAdapter
-    private lateinit var etSearch: TextInputEditText
-
     private lateinit var toolbar: Toolbar
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main_user)
-        setupRecyclerView()
-        setupSearchFilter()
         setupToolbar()
+        setupRecyclerView()
         initComponents()
         initListeners()
     }
@@ -59,6 +51,10 @@ class MainUserActivity : AppCompatActivity() {
                 startActivity(intent)
                 true
             }
+            R.id.action_category_button -> {
+                showCategoryPopupMenu(toolbar)
+                true
+            }
             R.id.action_configuracio -> {
                 Toast.makeText(this, "Anant a configuració", Toast.LENGTH_SHORT).show()
                 val intent = Intent(this, ConfigurationActivity::class.java)
@@ -73,6 +69,44 @@ class MainUserActivity : AppCompatActivity() {
         }
     }
 
+    private fun showCategoryPopupMenu(view: View) {
+        val popup = PopupMenu(this, view)
+        popup.menuInflater.inflate(R.menu.popup_categories, popup.menu)
+
+        popup.setOnMenuItemClickListener { menuItem ->
+            when (menuItem.itemId) {
+                R.id.cat_totes -> {
+                    applyCategoryFilter("Totes")
+                    true
+                }
+                R.id.cat_personal -> {
+                    applyCategoryFilter("Personal")
+                    true
+                }
+                R.id.cat_classe -> {
+                    applyCategoryFilter("Classe")
+                    true
+                }
+                else -> false
+            }
+        }
+
+        popup.show()
+    }
+
+    private fun applyCategoryFilter(category: String) {
+        Toast.makeText(this, "Filtrat per: $category", Toast.LENGTH_SHORT).show()
+        Log.d("Filter", "Categoria seleccionada: $category")
+
+        val filteredList = if (category == "Totes") {
+            DataSource.items
+        } else {
+            DataSource.items.filter { it.category == category }
+        }
+
+        adapter.updateList(filteredList)
+    }
+
     private fun mostrarDialogSobre() {
         AlertDialog.Builder(this)
             .setTitle("Sobre l'aplicació")
@@ -81,34 +115,9 @@ class MainUserActivity : AppCompatActivity() {
             .show()
     }
 
-    private fun setupSearchFilter() {
-        etSearch = findViewById(R.id.etSearch)
-
-        // Afegir TextWatcher per escoltar canvis en el text
-        etSearch.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-                // No necessitem fer res aquí
-            }
-
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                // Filtra en temps real mentre escriu
-                val query = s.toString()
-                adapter.filter(query)
-
-                // Log per veure què està filtrant
-                Log.d("Filter", "Filtrant per: $query")
-            }
-
-            override fun afterTextChanged(s: Editable?) {
-                // No necessitem fer res aquí
-            }
-        })
-    }
-
     private fun setupRecyclerView() {
         recyclerView = findViewById(R.id.rvLists)
         recyclerView.layoutManager = LinearLayoutManager(this)
-
 
         adapter = MyAdapter(DataSource.items){ item, position ->
             Toast.makeText(this, "Has seleccionat: ${item.title}", Toast.LENGTH_SHORT).show()
@@ -123,6 +132,7 @@ class MainUserActivity : AppCompatActivity() {
             startActivity(intent)
         }
     }
+
     private fun initComponents() {
         btnTestNav = findViewById(R.id.btnTestNav)
     }

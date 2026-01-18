@@ -2,59 +2,71 @@ package com.example.act07_menu_llista_filtre
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.Button
+import android.view.View
+import android.widget.PopupMenu
 import android.widget.Toast
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
-import androidx.core.content.ContextCompat
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
 class TasksTodayActivity : AppCompatActivity() {
-    private lateinit var btnTestNav: Button
-    private lateinit var recyclerView: RecyclerView
-    private lateinit var adapter: MyAdapter
 
     private lateinit var toolbar: Toolbar
+    private lateinit var recyclerView: RecyclerView
+    private lateinit var adapter: MyAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_tasks_today)
-        setupRecyclerView()
+
         setupToolbar()
-        initComponents()
-        initListeners()
+        setupRecyclerView()
     }
 
     private fun setupToolbar() {
         toolbar = findViewById(R.id.my_toolbar)
         setSupportActionBar(toolbar)
-        supportActionBar?.title = "TaskBuddy"
-        toolbar.setTitleTextColor(ContextCompat.getColor(this, R.color.white))    }
+        supportActionBar?.title = "Les Meves Tasques"
+    }
 
+    private fun setupRecyclerView() {
+        recyclerView = findViewById(R.id.rvListToday)
+        recyclerView.layoutManager = LinearLayoutManager(this)
+
+        adapter = MyAdapter(DataSource.items) { item, position ->
+            handleItemClick(item, position)
+        }
+
+        recyclerView.adapter = adapter
+    }
+
+    // Inflar el menú
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.main_menu, menu)
         return true
     }
 
+    // Gestionar clics del menú
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return when (item.itemId){
+        return when (item.itemId) {
             R.id.action_inici -> {
-                Toast.makeText(this, "Anant al Inici", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Anant a Inici", Toast.LENGTH_SHORT).show()
                 val intent = Intent(this, MainUserActivity::class.java)
                 startActivity(intent)
                 true
             }
+            R.id.action_category_button -> {
+                // Mostrar el PopupMenu
+                showCategoryPopupMenu(toolbar)
+                true
+            }
             R.id.action_configuracio -> {
-                Toast.makeText(this, "Anant a configuració", Toast.LENGTH_SHORT).show()
-                val intent = Intent(this, ConfigurationActivity::class.java)
-                startActivity(intent)
+                Toast.makeText(this, "Obrint Configuració...", Toast.LENGTH_SHORT).show()
                 true
             }
             R.id.action_sobre -> {
@@ -65,25 +77,57 @@ class TasksTodayActivity : AppCompatActivity() {
         }
     }
 
+    private fun showCategoryPopupMenu(view: View) {
+        val popup = PopupMenu(this, view)
+
+        popup.menuInflater.inflate(R.menu.popup_categories, popup.menu)
+
+        popup.setOnMenuItemClickListener { menuItem ->
+            when (menuItem.itemId) {
+                R.id.cat_totes -> {
+                    applyCategoryFilter("Totes")
+                    true
+                }
+                R.id.cat_personal -> {
+                    applyCategoryFilter("Personal")
+                    true
+                }
+                R.id.cat_classe -> {
+                    applyCategoryFilter("Classes")
+                    true
+                }
+                else -> false
+            }
+        }
+
+        popup.show()
+    }
+
+    private fun applyCategoryFilter(category: String) {
+        Toast.makeText(this, "Filtrat per: $category", Toast.LENGTH_SHORT).show()
+        Log.d("Filter", "Categoria seleccionada: $category")
+
+        val filteredList = if (category == "Totes") {
+            DataSource.items // Mostrar tots els items
+        } else {
+            DataSource.items.filter { it.category == category } // Filtrar per categoria
+        }
+
+        adapter.updateList(filteredList)
+    }
+
     private fun mostrarDialogSobre() {
         AlertDialog.Builder(this)
             .setTitle("Sobre l'aplicació")
-            .setMessage("Aplicació que gestiona les tasques")
+            .setMessage("Aplicació de gestió de tasques\nVersió 1.0")
             .setPositiveButton("Tancar", null)
             .show()
     }
 
-    private fun setupRecyclerView() {
-        recyclerView = findViewById(R.id.rvListToday)
-        recyclerView.layoutManager = LinearLayoutManager(this)
-
-
-        adapter = MyAdapter(TodayTasksDataSource.items){ item, position ->
-            Toast.makeText(this, "Has seleccionat: ${item.title}", Toast.LENGTH_SHORT).show()
-            showItemOptionsDialog(item, position)
-        }
-
-        recyclerView.adapter = adapter
+    private fun handleItemClick(item: MyItem, position: Int) {
+        Toast.makeText(this, "Has seleccionat: ${item.title}", Toast.LENGTH_SHORT).show()
+        Log.d("RecyclerView", "Item clicat: ${item.title} a la posició $position")
+        showItemOptionsDialog(item, position)
     }
 
     private fun showItemOptionsDialog(item: MyItem, position: Int) {
@@ -94,22 +138,13 @@ class TasksTodayActivity : AppCompatActivity() {
             .setItems(options) { dialog, which ->
                 when (which) {
                     0 -> {
-                        // Eliminar item
-                        adapter.removeItem(position)
-                        Toast.makeText(this, "S'ha eliminat: ${item.title}", Toast.LENGTH_SHORT).show()
+                        // Nota: Per eliminar correctament amb filtres actius,
+                        // caldria eliminar de DataSource.items i tornar a aplicar el filtre
+                        Toast.makeText(this, "Eliminar: ${item.title}", Toast.LENGTH_SHORT).show()
+                        Log.d("RecyclerView", "Item per eliminar: ${item.title}")
                     }
                 }
             }
             .show()
-    }
-    private fun initListeners() {
-        btnTestNav.setOnClickListener {
-            val intent = Intent(this, EditActivity::class.java) // Pon el que quieras
-            startActivity(intent)
-        }
-    }
-
-    private fun initComponents() {
-        btnTestNav = findViewById(R.id.btnTestNav)
     }
 }

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/cat_totes"
+        android:title="Totes les Categories" />
+    <item
+        android:id="@+id/cat_personal"
+        android:title="Personal" />
+    <item
+        android:id="@+id/cat_classe"
+        android:title="Classe" />
+</menu>

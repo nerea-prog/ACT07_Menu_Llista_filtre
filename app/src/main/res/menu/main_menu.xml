@@ -8,6 +8,12 @@
         app:showAsAction="ifRoom" />
 
     <item
+        android:id="@+id/action_category_button"
+        android:icon="@android:drawable/ic_menu_sort_by_size"
+        android:title="Filtrar per Categoria"
+        app:showAsAction="ifRoom" />
+
+    <item
         android:id="@+id/action_configuracio"
         android:icon="@android:drawable/ic_menu_preferences"
         android:title="Configuració"
