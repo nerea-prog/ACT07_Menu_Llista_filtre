@@ -281,16 +281,19 @@ import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.widget.Button
 import android.widget.PopupMenu
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
 class TasksTodayActivity : AppCompatActivity() {
 
+    private lateinit var btnTestNav: Button
     private lateinit var toolbar: Toolbar
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: MyAdapter
@@ -301,12 +304,16 @@ class TasksTodayActivity : AppCompatActivity() {
 
         setupToolbar()
         setupRecyclerView()
+        initComponents()
+        initListeners()
     }
 
     private fun setupToolbar() {
         toolbar = findViewById(R.id.my_toolbar)
         setSupportActionBar(toolbar)
-        supportActionBar?.title = "Les Meves Tasques"
+        supportActionBar?.title = "TaskBuddy"
+        toolbar.setTitleTextColor(ContextCompat.getColor(this, R.color.white))
+
     }
 
     private fun setupRecyclerView() {
@@ -342,6 +349,8 @@ class TasksTodayActivity : AppCompatActivity() {
             }
             R.id.action_configuracio -> {
                 Toast.makeText(this, "Obrint Configuració...", Toast.LENGTH_SHORT).show()
+                val intent = Intent(this, ConfigurationActivity::class.java)
+                startActivity(intent)
                 true
             }
             R.id.action_sobre -> {
@@ -368,7 +377,7 @@ class TasksTodayActivity : AppCompatActivity() {
                     true
                 }
                 R.id.cat_classe -> {
-                    applyCategoryFilter("Classes")
+                    applyCategoryFilter("Classe")
                     true
                 }
                 else -> false
@@ -422,6 +431,17 @@ class TasksTodayActivity : AppCompatActivity() {
             }
             .show()
     }
+
+    private fun initListeners() {
+        btnTestNav.setOnClickListener {
+            val intent = Intent(this, EditActivity::class.java)
+            startActivity(intent)
+        }
+    }
+
+    private fun initComponents() {
+        btnTestNav = findViewById(R.id.btnTestNav)
+    }
 }
 ```
 
@@ -434,3 +454,8 @@ class TasksTodayActivity : AppCompatActivity() {
    - Crida a `adapter.updateList()` per actualitzar el RecyclerView
 
 
+---
+
+## Video mostrant el funcionament
+
+<video controls src="video/Video1.mp4" title="Title"></video>
