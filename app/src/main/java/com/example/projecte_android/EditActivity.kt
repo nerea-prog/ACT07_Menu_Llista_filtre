@@ -1,4 +1,4 @@
-package com.example.act07_menu_llista_filtre
+package com.example.projecte_android
 
 import android.content.Intent
 import android.os.Bundle
@@ -6,24 +6,18 @@ import android.view.Menu
 import android.view.MenuItem
 import android.widget.Button
 import android.widget.Toast
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 
-class ConfigurationActivity : AppCompatActivity() {
-
+class EditActivity : AppCompatActivity() {
     private lateinit var btnTestNav: Button
-
     private lateinit var toolbar: Toolbar
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_configuration)
+        setContentView(R.layout.activity_edit)
         setupToolbar()
         initComponents()
         initListeners()
@@ -32,8 +26,7 @@ class ConfigurationActivity : AppCompatActivity() {
         toolbar = findViewById(R.id.my_toolbar)
         setSupportActionBar(toolbar)
         supportActionBar?.title = "TaskBuddy"
-        toolbar.setTitleTextColor(ContextCompat.getColor(this, R.color.white))
-    }
+        toolbar.setTitleTextColor(ContextCompat.getColor(this, R.color.white))    }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.main_menu, menu)
@@ -71,7 +64,7 @@ class ConfigurationActivity : AppCompatActivity() {
     }
     private fun initListeners() {
         btnTestNav.setOnClickListener {
-            val intent = Intent(this, TutorialActivity::class.java)
+            val intent = Intent(this, ConfigurationActivity::class.java)
             startActivity(intent)
         }
     }

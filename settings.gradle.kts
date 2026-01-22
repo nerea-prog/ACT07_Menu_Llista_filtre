@@ -19,5 +19,5 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "ACT07_Menu_Llista_filtre"
+rootProject.name = "Projecte_Android"
 include(":app")

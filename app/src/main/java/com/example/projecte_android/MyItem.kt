@@ -1,4 +1,4 @@
-package com.example.act07_menu_llista_filtre
+package com.example.projecte_android
 
 data class MyItem(
     val title: String,

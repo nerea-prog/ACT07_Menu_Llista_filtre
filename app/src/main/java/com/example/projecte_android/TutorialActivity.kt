@@ -1,29 +1,21 @@
-package com.example.act07_menu_llista_filtre
+package com.example.projecte_android
 
 import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.Button
 import android.widget.Toast
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 
-class EditActivity : AppCompatActivity() {
-    private lateinit var btnTestNav: Button
+class TutorialActivity : AppCompatActivity() {
     private lateinit var toolbar: Toolbar
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_edit)
+        setContentView(R.layout.activity_tutorial)
         setupToolbar()
-        initComponents()
-        initListeners()
     }
     private fun setupToolbar() {
         toolbar = findViewById(R.id.my_toolbar)
@@ -64,15 +56,5 @@ class EditActivity : AppCompatActivity() {
             .setMessage("Aplicació que gestiona les tasques")
             .setPositiveButton("Tancar", null)
             .show()
-    }
-    private fun initListeners() {
-        btnTestNav.setOnClickListener {
-            val intent = Intent(this, ConfigurationActivity::class.java)
-            startActivity(intent)
-        }
-    }
-
-    private fun initComponents() {
-        btnTestNav = findViewById(R.id.btnTestNav)
     }
 }

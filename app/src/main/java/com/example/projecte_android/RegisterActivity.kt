@@ -1,4 +1,4 @@
-package com.example.act07_menu_llista_filtre
+package com.example.projecte_android
 
 import android.content.Intent
 import android.os.Bundle
@@ -6,26 +6,23 @@ import android.view.Menu
 import android.view.MenuItem
 import android.widget.Button
 import android.widget.Toast
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 
-class RegistroCorrectoActivity : AppCompatActivity() {
+class RegisterActivity : AppCompatActivity() {
     private lateinit var btnTestNav: Button
     private lateinit var toolbar: Toolbar
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_registro_correcto)
+        setContentView(R.layout.activity_register)
         setupToolbar()
         initComponents()
         initListeners()
     }
-
     private fun setupToolbar() {
         toolbar = findViewById(R.id.my_toolbar)
         setSupportActionBar(toolbar)
@@ -68,7 +65,7 @@ class RegistroCorrectoActivity : AppCompatActivity() {
     }
     private fun initListeners() {
         btnTestNav.setOnClickListener {
-            val intent = Intent(this, TasksTodayActivity::class.java)
+            val intent = Intent(this, RegistroCorrectoActivity::class.java)
             startActivity(intent)
         }
     }

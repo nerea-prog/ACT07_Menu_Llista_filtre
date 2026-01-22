@@ -1,4 +1,4 @@
-package com.example.act07_menu_llista_filtre
+package com.example.projecte_android
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4

@@ -4,7 +4,7 @@ plugins {
 }
 
 android {
-    namespace = "com.example.act07_menu_llista_filtre"
+    namespace = "com.example.projecte_android"
     compileSdk {
         version = release(36)
     }
